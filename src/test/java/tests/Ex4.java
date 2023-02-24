@@ -36,7 +36,8 @@ public class Ex4 {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown()
+    {
         driver.quit();
     }
 

@@ -3,11 +3,11 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 
-public class MyListsPageObject extends MainPageObject {
+abstract public class MyListsPageObject extends MainPageObject {
 
-    public static final String
-        FOLDER_BY_NAME_TPL = "//*[@text='{FOLDER_NAME}']",
-        ARTICLE_IN_MY_LIST_TPL = "//*[contains(@text, '{ARTICLE_SUBTITLE}')]";
+    protected static String
+        FOLDER_BY_NAME_TPL,
+        ARTICLE_IN_MY_LIST_TPL;
 
     private static String getFolderXpathByName(String name_of_folder)
     {

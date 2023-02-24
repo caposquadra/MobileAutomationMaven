@@ -5,10 +5,10 @@ import org.openqa.selenium.By;
 
 public class NavigationUI extends MainPageObject {
 
-    private static final String
-            MY_LIST_LINK = "//android.widget.FrameLayout[@content-desc='My lists']/android.widget.ImageView",
-            SEARCH_ICON = "org.wikipedia:id/menu_page_search",
-            RETURN_BUTTON = "//android.widget.ImageButton[@content-desc='Navigate up']";
+    protected static String
+            MY_LIST_LINK,
+            SEARCH_ICON,
+            RETURN_BUTTON;
 
     public NavigationUI(AppiumDriver driver)
     {
