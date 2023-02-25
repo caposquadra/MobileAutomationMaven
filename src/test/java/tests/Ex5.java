@@ -11,7 +11,7 @@ import org.junit.Test;
 public class Ex5 extends CoreTestCase {
 
     @Test
-    public void testAddTwoArticlesToReadingListAndRemoveOneOfThem() {
+    public void testAddTwoArticlesToReadingListAndRemoveOneOfThem() throws IllegalAccessException {
 
         String search_query_1 = "Java";
         String search_query_2 = "Selenium";

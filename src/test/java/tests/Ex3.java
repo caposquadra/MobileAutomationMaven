@@ -8,7 +8,7 @@ import org.junit.Test;
 public class Ex3 extends CoreTestCase {
 
     @Test
-    public void testSearchResultsAmountAndCancel() {
+    public void testSearchResultsAmountAndCancel() throws IllegalAccessException {
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();

@@ -9,7 +9,7 @@ import org.junit.Test;
 public class Ex6 extends CoreTestCase {
 
     @Test
-    public void testArticlesHasTitle() {
+    public void testArticlesHasTitle() throws IllegalAccessException {
 
         String search_query_1 = "Java";
 
