@@ -1,4 +1,5 @@
 package lib.ui;
+import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,13 +10,14 @@ abstract public class ArticlePageObject extends MainPageObject {
             TITLE,
             FOOTER_ELEMENT,
             OPTION_BUTTON,
-            ADD_TO_MY_LIST,
+            ADD_TO_MY_LIST_BUTTON,
             ADD_TO_MY_LIST_OVERLAY,
             MY_LIST_NAME_INPUT,
             MY_LIST_OK_BUTTON,
             VIEW_LIST,
             CLOSE_ARTICLE_BUTTON,
-            ARTICLE_TITLE_ID;
+            ARTICLE_TITLE_ID,
+            OPTION_REMOVE_FROM_MY_LIST_BUTTON;
     public static final String
             FOLDER_BY_EXIST_NAME_TPL = "xpath://*[@text='{FOLDER_NAME}']";
     private static String getExistFolderXpathByName(String name_of_folder)
@@ -31,7 +33,13 @@ abstract public class ArticlePageObject extends MainPageObject {
     }
     public String getArticleTitle() throws IllegalAccessException {
         WebElement title_element = waitForTitleElement();
-        return title_element.getAttribute("text");
+        if (Platform.getInstance().isAndroid()) {
+            return title_element.getAttribute("text");
+        } else if (Platform.getInstance().isIOS()) {
+            return title_element.getAttribute("name");
+        } else {
+            return title_element.getText();
+        }
     }
     public void swipeToFooter() throws IllegalAccessException {
         this.swipeUpToFindElement(
@@ -47,7 +55,7 @@ abstract public class ArticlePageObject extends MainPageObject {
                 10
         );
         this.waitForElementAndClick(
-                ADD_TO_MY_LIST,
+                ADD_TO_MY_LIST_BUTTON,
                 "Couldn't find button to add the article to reading list",
                 10
         );
@@ -65,7 +73,7 @@ abstract public class ArticlePageObject extends MainPageObject {
                 10
         );
         this.waitForElementAndClick(
-                ADD_TO_MY_LIST,
+                ADD_TO_MY_LIST_BUTTON,
                 "Couldn't find button to add the article to reading list",
                 10
         );
@@ -92,14 +100,44 @@ abstract public class ArticlePageObject extends MainPageObject {
         );
     }
     public void closeArticle() throws IllegalAccessException {
+
+        if (Platform.getInstance().isMW() || Platform.getInstance().isIOS())
+        {
         this.waitForElementAndClick(
                 CLOSE_ARTICLE_BUTTON,
                 "Couldn't close article, there is no X button",
                 10
         );
+        }
+        else {
+            System.out.println("this is not a method for MW");
+        }
+
     }
     public static void assertElementPresent() {
         WebElement element = driver.findElement(By.id(ARTICLE_TITLE_ID));
         Assert.assertTrue("There is no an article title element on the page", element != null);
+    }
+
+    public void addArticlesToMySaved() throws IllegalAccessException {
+        if(Platform.getInstance().isMW()){
+            this.removeArticleFromListIfItAdded();
+        }
+        this.waitForElementAndClick(ADD_TO_MY_LIST_BUTTON, "cannot click and add articls", 5);
+    }
+
+    public void removeArticleFromListIfItAdded() throws IllegalAccessException {
+        if(this.isElementPresent(OPTION_REMOVE_FROM_MY_LIST_BUTTON)) {
+            this.waitForElementAndClick(
+                    OPTION_REMOVE_FROM_MY_LIST_BUTTON,
+                    "there is no button to remove",
+                    5
+            );
+            this.waitForElementPresent(
+                    ADD_TO_MY_LIST_BUTTON,
+                    "there is not this button",
+                    5
+            );
+        }
     }
 }

@@ -6,7 +6,9 @@ abstract public class MyListsPageObject extends MainPageObject {
 
     protected static String
         FOLDER_BY_NAME_TPL,
-        ARTICLE_IN_MY_LIST_TPL;
+        ARTICLE_IN_MY_LIST_TPL,
+        ARTICLE_BY_TITLE_TPL,
+        REMOVED_FROM_MY_LIST_BUTTON;
 
     private static String getFolderXpathByName(String name_of_folder)
     {
@@ -16,6 +18,11 @@ abstract public class MyListsPageObject extends MainPageObject {
     private static String getArticleXpathBySubtitle(String article_subtitle)
     {
         return ARTICLE_IN_MY_LIST_TPL.replace("{ARTICLE_SUBTITLE}", article_subtitle);
+    }
+
+    private static String getSavedArticleXpathByTitle(String article_title)
+    {
+        return ARTICLE_BY_TITLE_TPL.replace("{ARTICLE_TITLE}", article_title);
     }
 
     public MyListsPageObject(RemoteWebDriver driver)
@@ -69,4 +76,17 @@ abstract public class MyListsPageObject extends MainPageObject {
         );
         this.waitForArticleToDisappearByTitle(article_title);
     }
+
+    public void clickOnTheSavedArticleToRemoveItFromTheList(String article_title_1) throws IllegalAccessException {
+
+        this.waitForElementAndClick(
+                REMOVED_FROM_MY_LIST_BUTTON,
+                "Cannot find an article by xpath " + article_title_1,
+                10
+        );
+    }
+
+
+
+
 }

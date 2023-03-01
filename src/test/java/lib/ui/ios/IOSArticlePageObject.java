@@ -9,7 +9,7 @@ public class IOSArticlePageObject extends ArticlePageObject {
         TITLE = "org.wikipedia:id/view_page_title_text";
         FOOTER_ELEMENT = "//*[@text='View page in browser']";
         OPTION_BUTTON = "//android.widget.ImageView[@content-desc='More options']";
-        ADD_TO_MY_LIST = "//android.widget.LinearLayout[3]/android.widget.RelativeLayout/android.widget.TextView[@text='Add to reading list']";
+        ADD_TO_MY_LIST_BUTTON = "//android.widget.LinearLayout[3]/android.widget.RelativeLayout/android.widget.TextView[@text='Add to reading list']";
         ADD_TO_MY_LIST_OVERLAY = "org.wikipedia:id/onboarding_button";
         MY_LIST_NAME_INPUT = "org.wikipedia:id/text_input";
         MY_LIST_OK_BUTTON = "//*[@text='OK']";

@@ -18,7 +18,7 @@ public class CoreTestCase extends TestCase {
     @Override
     protected void tearDown() throws Exception
     {
-        driver.quit();
+        //driver.close();
         super.tearDown();
     }
 
