@@ -15,7 +15,7 @@ public class MWArticlePageObject  extends ArticlePageObject {
         MY_LIST_OK_BUTTON = "xpath://*[@text='OK']";
         VIEW_LIST = "id:org.wikipedia:id/snackbar_action";
         CLOSE_ARTICLE_BUTTON = "xpath://android.widget.ImageButton[@content-desc='Navigate up']";
-        ARTICLE_TITLE_ID = "id:org.wikipedia:id/view_page_title_text";}
+        ARTICLE_TITLE_ID = "css:#content h1";}
     public MWArticlePageObject(RemoteWebDriver driver)
     {
         super(driver);

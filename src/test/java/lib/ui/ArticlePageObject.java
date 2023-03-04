@@ -1,9 +1,12 @@
 package lib.ui;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.util.List;
 
 abstract public class ArticlePageObject extends MainPageObject {
     protected static String
@@ -28,9 +31,11 @@ abstract public class ArticlePageObject extends MainPageObject {
     {
         super(driver);
     }
+    @Step("Wait for title element")
     public WebElement waitForTitleElement() throws IllegalAccessException {
             return this.waitForElementPresent(TITLE, "Cannot find article title",  10);
     }
+    @Step("Get article title")
     public String getArticleTitle() throws IllegalAccessException {
         WebElement title_element = waitForTitleElement();
         if (Platform.getInstance().isAndroid()) {
@@ -41,6 +46,8 @@ abstract public class ArticlePageObject extends MainPageObject {
             return title_element.getText();
         }
     }
+
+    @Step("Swipe an article to footer")
     public void swipeToFooter() throws IllegalAccessException {
         this.swipeUpToFindElement(
                 FOOTER_ELEMENT,
@@ -48,6 +55,8 @@ abstract public class ArticlePageObject extends MainPageObject {
                 20
         );
     }
+
+    @Step("Add article to the existing My Favorites list")
     public void addArticleToExistList(String name_of_folder) throws IllegalAccessException {
         this.waitForElementAndClick(
                 OPTION_BUTTON,
@@ -66,6 +75,8 @@ abstract public class ArticlePageObject extends MainPageObject {
                 10
         );
     }
+
+    @Step("Add an article to my favorites list on Android")
     public void addArticleToMyList(String name_of_folder) throws IllegalAccessException {
         this.waitForElementAndClick(
                 OPTION_BUTTON,
@@ -98,7 +109,9 @@ abstract public class ArticlePageObject extends MainPageObject {
                 "Couldn't press OK button",
                 10
         );
+        screenshot(this.takeScreenShot("my_favorites_list_for_android"));
     }
+    @Step("Close an article")
     public void closeArticle() throws IllegalAccessException {
 
         if (Platform.getInstance().isMW() || Platform.getInstance().isIOS())
@@ -114,18 +127,21 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
 
     }
-    public static void assertElementPresent() {
-        WebElement element = driver.findElement(By.id(ARTICLE_TITLE_ID));
+    @Step("Check if element exists on the page")
+    public void assertElementPresent() throws IllegalAccessException {
+        By mySelector = this.getLocatorByString(ARTICLE_TITLE_ID);
+        WebElement element = driver.findElement(mySelector);
         Assert.assertTrue("There is no an article title element on the page", element != null);
     }
-
+    @Step("Add an article to my favorites list for mobile web")
     public void addArticlesToMySaved() throws IllegalAccessException {
         if(Platform.getInstance().isMW()){
             this.removeArticleFromListIfItAdded();
         }
         this.waitForElementAndClick(ADD_TO_MY_LIST_BUTTON, "cannot click and add articls", 5);
+        screenshot(this.takeScreenShot("my_favorites_list_for_mobile_web"));
     }
-
+    @Step("Remove an article from my favorites list")
     public void removeArticleFromListIfItAdded() throws IllegalAccessException {
         if(this.isElementPresent(OPTION_REMOVE_FROM_MY_LIST_BUTTON)) {
             this.waitForElementAndClick(

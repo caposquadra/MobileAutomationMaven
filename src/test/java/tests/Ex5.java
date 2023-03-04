@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -9,6 +11,7 @@ import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
+@Epic("Test for My Favorites")
 public class Ex5 extends CoreTestCase {
 
     private static final String
@@ -17,6 +20,11 @@ public class Ex5 extends CoreTestCase {
     password = "QWEasd123";
 
     @Test
+    @Features(value = {@Feature(value="Search"), @Feature(value ="My Favorites")})
+    @DisplayName("Add two articles to reading list and remove one of them")
+    @Description("User finds an article via search, opens it and adds it to a favorites list. User repeats these steps for another article. Then user opens the favorite list and remove one article from it")
+    @Step("Starting testAddTwoArticlesToReadingListAndRemoveOneOfThem test")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void testAddTwoArticlesToReadingListAndRemoveOneOfThem() throws IllegalAccessException, InterruptedException {
 
         String search_query_1 = "Java";
@@ -70,7 +78,6 @@ public class Ex5 extends CoreTestCase {
 
         //Adding the second article to the reading list
 
-        //
         if (Platform.getInstance().isMW()) {
             SearchPageObject.initSearchInput();
         }
@@ -88,7 +95,6 @@ public class Ex5 extends CoreTestCase {
             NavigationUI.returnToThePreviousScreen();
             NavigationUI.clickMyList();
         } else ArticlePageObject.addArticlesToMySaved();
-
 
         //Removing the first article from the reading list and check if it has been done correctly
         if (Platform.getInstance().isAndroid()) {

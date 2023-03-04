@@ -1,4 +1,5 @@
 package lib.ui;
+import io.qameta.allure.Step;
 import lib.Platform;
 import lib.ui.factories.NavigationUIFactory;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -19,6 +20,7 @@ public class NavigationUI extends MainPageObject {
         super(driver);
     }
 
+    @Step("Click on My Favorites to open it")
     public void clickMyList() throws IllegalAccessException {
 
         if (Platform.getInstance().isMW()) {
@@ -37,7 +39,7 @@ public class NavigationUI extends MainPageObject {
             );
         }
     }
-
+    @Step("Click search icom")
     public void clickSearchIcon() throws IllegalAccessException {
         this.waitForElementAndClick(
                 SEARCH_ICON,
@@ -45,7 +47,7 @@ public class NavigationUI extends MainPageObject {
                 10
         );
     }
-
+    @Step("Return to the previous screen")
     public void returnToThePreviousScreen() throws IllegalAccessException {
         this.waitForElementAndClick(
                 RETURN_BUTTON,
@@ -53,8 +55,8 @@ public class NavigationUI extends MainPageObject {
                 10
         );
     }
-
-    public void OpenNavigationAfterLogin() throws IllegalAccessException, InterruptedException {
+    @Step("Open navigation menu after login on mobile web")
+    public void OpenNavigationAfterLogin() throws IllegalAccessException {
         if (Platform.getInstance().isMW()){
         this.tryClickElementWithFewAttempts(
                 RETURN_TO_THE_PREVIOUS_PAGE_BUTTON,
@@ -79,8 +81,8 @@ public class NavigationUI extends MainPageObject {
     }
 
     }
-
-    public void OpenNavigationIfUserIsLogged() throws IllegalAccessException, InterruptedException {
+    @Step("Open navigation menu if user is logged in on mobile web")
+    public void OpenNavigationIfUserIsLogged() throws IllegalAccessException {
         if (Platform.getInstance().isMW()){
 
             this.tryClickElementWithFewAttempts(
@@ -101,7 +103,8 @@ public class NavigationUI extends MainPageObject {
 
     }
 
-    public void refreshThePage() throws IllegalAccessException, InterruptedException {
+    @Step("Refresh the page")
+    public void refreshThePage() throws InterruptedException {
         Thread.sleep(2000);
         driver.navigate().refresh();
         Thread.sleep(2000);
